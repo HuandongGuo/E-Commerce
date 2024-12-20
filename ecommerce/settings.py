@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 from django.utils.timezone import now
 from pytz import timezone
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,10 +18,25 @@ SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['e-commerce-production-3e1c.up.railway.app', 'https://e-commerce-production-3e1c.up.railway.app']
+ALLOWED_HOSTS = ['e-commerce-production-3e1c.up.railway.app', 'https://e-commerce-production-3e1c.up.railway.app', ]
 CSRF_TRUSTED_ORIGINS = ['https://e-commerce-production-3e1c.up.railway.app']
 
 # Application definition
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "DEBUG",
+    },
+}
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
