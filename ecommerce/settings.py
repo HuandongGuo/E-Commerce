@@ -18,8 +18,10 @@ SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com',  'e-commerce-production-3e1c.up.railway.app', 'https://e-commerce-production-3e1c.up.railway.app']
-CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'https://e-commerce-production-3e1c.up.railway.app']
+ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
+                 'https://e-commerce-production-3e1c.up.railway.app']
+CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com', 'https://e-commerce-production-3e1c'
+                                                        '.up.railway.app']
 
 # Application definition
 
@@ -36,7 +38,6 @@ LOGGING = {
         "level": "DEBUG",
     },
 }
-
 
 INSTALLED_APPS = [
     'django.contrib.admin',
