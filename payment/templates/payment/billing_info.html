@@ -1,83 +1,99 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<style> .center-text {text-align: center;}</style>
-        <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Billing Info</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">Enter Your Payment Info...</p>
+<style>
+    .center-text {
+        text-align: center;
+    }
+</style>
+
+<!-- Header -->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Billing Info</h1>
+            <p class="lead fw-normal text-white-50 mb-0">Enter Your Payment Info...</p>
+        </div>
+    </div>
+</header>
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+            <!-- Order Summary -->
+            <div class="card">
+                <div class="card-header">Order Summary</div>
+                <div class="card-body">
+                    {% if cart_products %}
+                        {% for product in cart_products %}
+                            <p>
+                                {{ product.name }}:
+                                {% if product.is_sale %}
+                                    ${{ product.sale_price }}
+                                {% else %}
+                                    ${{ product.price }}
+                                {% endif %}
+                                <br />
+                                <small>Quantity:
+                                    {% for key, value in quantities.items %}
+                                        {% if key == product.id|slugify %}
+                                            {{ value }}
+                                        {% endif %}
+                                    {% endfor %}
+                                </small>
+                            </p>
+                        {% endfor %}
+                        <p><strong>Total: ${{ totals }}</strong></p>
+                    {% else %}
+                        <p>No products in the cart.</p>
+                    {% endif %}
+                    <a href="{% url 'cart_summary' %}" class="btn btn-sm btn-outline-secondary">Update Items</a>
                 </div>
             </div>
-        </header>
-    <br/>
-<div class ="container" >
-<div class = "row" >
-<div class = "col-md-6 offset-md-3">
 
-    <div class="card">
-  <div class="card-header">
-    Order Summary
-  </div>
-  <div class="card-body">
-      {% for product in cart_products %}
-        {{ product.name }}:
-        {% if product.is_sale %}
-            ${{ product.sale_price }}
-        {% else %}
-            ${{ product.price }}
-        {% endif %}
-      <br/>
-        <small> Quantity:
-            {% for key, value in quantities.items %}
-                {% if key == product.id|slugify %}
-                    {{value}}
-                {% endif %}
-        {% endfor %}</small>
-      <br><br>
-      {% endfor %}
-      <strong>Total: ${{totals}}</strong>
-      <br><br>
-      <a href="{%url 'cart_summary'%}" class="btn btn-sm btn-outline-secondary">Update Items</a>
- </div>
-</div>
-    <br/><br/>
-<div class="card">
-  <div class="card-header">
-    Shipping Summary
-  </div>
-  <div class="card-body">
-      Name: {{shipping_form.Shipping_full_name}}<br/>
-      Email: {{shipping_form.Shipping_email}}<br/>
-      Address 1: {{shipping_form.Shipping_address1}}<br/>
-      Address 2: {{shipping_form.Shipping_address2}}<br/>
-      City: {{shipping_form.Shipping_city}}<br/>
-      State: {{shipping_form.Shipping_state}}<br/>
-      Zip Code: {{shipping_form.Shipping_zip_code}}<br/>
-      Country: {{shipping_form.Shipping_country}}<br/>
-    <br/>
-      <a href="{% url 'checkout' %}" class="btn btn-outline-secondary">Update Information</a>
-  </div>
-</div>
-    <br/><br/>
-<div class="card">
-  <div class="card-header">
-    Billing Information
-  </div>
-  <div class="card-body">
-      <form method="POST" action="{% url 'process_order' %}">
-    {% csrf_token %}
-    {{ billing_form.as_p }}
-  </div>
-</div>
-<br/>
-  <button type="submit" class="btn btn-secondary">Pay Now</button>
-    </form>
-<br><br>
-</div>
-</div>
+            <br /><br />
+
+            <!-- Shipping Summary -->
+            <div class="card">
+                <div class="card-header">Shipping Summary</div>
+                <div class="card-body">
+                    {% if shipping_form %}
+                        <p>Name: {{ shipping_form.Shipping_full_name }}</p>
+                        <p>Email: {{ shipping_form.Shipping_email }}</p>
+                        <p>Address 1: {{ shipping_form.Shipping_address1 }}</p>
+                        <p>Address 2: {{ shipping_form.Shipping_address2 }}</p>
+                        <p>City: {{ shipping_form.Shipping_city }}</p>
+                        <p>State: {{ shipping_form.Shipping_state }}</p>
+                        <p>Zip Code: {{ shipping_form.Shipping_zip_code }}</p>
+                        <p>Country: {{ shipping_form.Shipping_country }}</p>
+                    {% else %}
+                        <p>Shipping information not available.</p>
+                    {% endif %}
+                    <a href="{% url 'checkout' %}" class="btn btn-outline-secondary">Update Information</a>
+                </div>
+            </div>
+
+            <br /><br />
+
+            <p class="center-text">{{paypal_form.render}}</p>
+
+            <br/><br/>
+            <!-- Billing Information -->
+            <div class="card">
+                <div class="card-header">Billing Information</div>
+                <div class="card-body">
+                    <form method="POST" action="{% url 'process_order' %}">
+                        {% csrf_token %}
+                        {{ billing_form.as_p }}
+                        <button type="submit" class="btn btn-secondary mt-3">Pay Now</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
 </div>
 
-
-{% endblock %}
