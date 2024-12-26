@@ -9,8 +9,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load our environment variables
 # load_dotenv()
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
+
+# Password for local hosting settings
+# DB_PASSWORD_YO = os.environ.get('DB_PASSWORD_YO')
 
 # password DB
 DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
@@ -22,9 +26,11 @@ SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
-                 'https://e-commerce-production-3e1c.up.railway.app']
+                 'https://e-commerce-production-3e1c.up.railway.app', 'localhost',
+                 '2201-2806-2f0-7081-e0b5-3955-aa0d-d525-e40d.ngrok-free.app']
 CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com', 'https://e-commerce-production-3e1c'
-                                                        '.up.railway.app']
+                                                        '.up.railway.app', 'https://2201-2806-2f0-7081-e0b5-3955-aa0d'
+                                                                           '-d525-e40d.ngrok-free.app']
 
 # Application definition
 

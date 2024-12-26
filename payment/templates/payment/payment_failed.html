@@ -1,10 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<h1>failed</h1>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+    .center-text {
+        text-align: center;
+    }
+</style>
+
+<!-- Header -->
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Payment Failed</h1>
+            <p class="lead fw-normal text-white-50 mb-0">There Was A Problem...</p>
+        </div>
+    </div>
+</header>
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+
+            <br/><br/>
+            <h1>There was a problem processing your order...</h1>
+            <br/>&nbsp;<br/>  <br/>&nbsp;<br/>
+            <br/>&nbsp;<br/>  <br/>&nbsp;<br/>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}
