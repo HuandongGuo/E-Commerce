@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 
 
 # Create customer profile
-class Profile(models.Model):
+class Profile(models.Model): 
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     date_modified = models.DateTimeField(User, auto_now_add=True)
     phone = models.CharField(max_length=20, blank=True)
@@ -76,4 +76,4 @@ class Order(models.Model):
     status = models.BooleanField(default=False)
 
     def __str__(self):
-        return self.product
+        return self.product.__str__()

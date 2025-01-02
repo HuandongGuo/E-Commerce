@@ -17,7 +17,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # DB_PASSWORD_YO = os.environ.get('DB_PASSWORD_YO')
 
 # password DB
-DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
+# DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_'
@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
-                 'https://e-commerce-production-3e1c.up.railway.app', 'localhost',
+                 'https://e-commerce-production-3e1c.up.railway.app', 'localhost', '127.0.0.1',
                  '2201-2806-2f0-7081-e0b5-3955-aa0d-d525-e40d.ngrok-free.app']
 CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com', 'https://e-commerce-production-3e1c'
                                                         '.up.railway.app', 'https://2201-2806-2f0-7081-e0b5-3955-aa0d'
@@ -99,14 +99,14 @@ WSGI_APPLICATION = 'ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': BASE_DIR / 'db.sqlite3',
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': os.environ['DB_PASSWORD_YO'],
-        'HOST': 'junction.proxy.rlwy.net',
-        'PORT': '20646',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'railway',
+        # 'USER': 'postgres',
+        # 'PASSWORD': os.environ['DB_PASSWORD_YO'],
+        # 'HOST': 'junction.proxy.rlwy.net',
+        # 'PORT': '20646',
 
     }
 }
