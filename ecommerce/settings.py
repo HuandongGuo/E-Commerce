@@ -1,27 +1,23 @@
-from pathlib import Path
 import os
 import environ
 
 # from dotenv import load_dotenv
-from django.utils.timezone import now
-from pytz import timezone
 
+env = environ.Env()
+
+# read th .env file
+environ.Env.read_env()
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+SECRET_KEY = env('SECRET_KEY')
+
+DEBUG = env('DEBUG')
 # Load our environment variables
 # load_dotenv()
 
 # Password for local hosting settings
 # DB_PASSWORD_YO = os.environ.get('DB_PASSWORD_YO')
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-env = environ.Env()
-
-# read th .env file
-environ.Env.read_env(env_file=str(BASE_DIR) + '/.env')
-
-SECRET_KEY = env('SECRET_KEY')
-
-DEBUG = env('DEBUG')
 
 # password DB
 DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
