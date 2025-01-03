@@ -1,16 +1,71 @@
+import datetime
+import stripe  # unique user id for duplicate orders
+import uuid
+
+from django.conf import settings
+from django.contrib import messages
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
+# Import PayPal stuff
+from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from paypal.standard.forms import PayPalPaymentsForm
+
 from cart.cart import Cart
 from payment.forms import ShippingAddressForm, PaymentForm
 from payment.models import ShippingAddress, Order, OrderItems
-from django.contrib import messages
-from django.contrib.auth.models import User
-from store.models import Product, Profile
-import datetime
-# Import PayPal stuff
-from django.urls import reverse
-from paypal.standard.forms import PayPalPaymentsForm
-from django.conf import settings
-import uuid  # unique user id for duplicate orders
+from store.models import Profile
+
+stripe.api_key = settings.STRIPE_SECRET_KEY
+
+import stripe
+from django.http import JsonResponse, HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+
+# Replace with your Stripe Webhook secret
+STRIPE_WEBHOOK_SECRET = settings.STRIPE_WEBHOOK_SECRET
+
+
+@csrf_exempt
+def stripe_webhook(request):
+    # Retrieve the event data
+    payload = request.body
+    sig_header = request.META['HTTP_STRIPE_SIGNATURE']
+
+    try:
+        # Verify the event by checking its signature
+        event = stripe.Webhook.construct_event(
+            payload, sig_header, STRIPE_WEBHOOK_SECRET
+        )
+    except ValueError as e:
+        # Invalid payload
+        return HttpResponse(status=400)
+    except stripe.error.SignatureVerificationError as e:
+        # Invalid signature
+        return HttpResponse(status=400)
+
+    # Handle the event
+    if event['type'] == 'checkout.session.completed':
+        session = event['data']['object']
+
+        # Retrieve the metadata from the session
+        order_id = session['metadata']['order_id']
+
+        # Update the order status in your database
+        try:
+            order = Order.objects.get(id=order_id)
+            order.paid = True
+            order.date_ordered = datetime.datetime.now()
+            order.stripe_session_id = session['id']
+            order.save()
+        except Order.DoesNotExist:
+            return HttpResponse(status=404)
+
+        # Add additional processing as needed
+
+    # Return a 200 response to acknowledge receipt of the event
+    return HttpResponse(status=200)
 
 
 def orders(request, pk):
@@ -235,6 +290,32 @@ def billing_info(request):
         # Create a PayPal button
         paypal_form = PayPalPaymentsForm(initial=paypal_dict)
 
+        # Create Stripe dictionary
+        domain = 'http://urbanaurajewelry.com'
+        try:
+            # Create a Stripe checkout session
+            checkout_session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[
+                    {
+                        'price_data': {
+                            'currency': 'usd',
+                            'product_data': {
+                                'name': 'Jewelry Order',
+                            },
+                            'unit_amount': int(totals * 100),
+                        },
+                        'quantity': 1,
+                    },
+                ],
+                mode='payment',
+                success_url=f'{domain}/payment/payment_success',
+                cancel_url=f'{domain}/payment/payment_failed',
+                metadata={'order_id': 1},  # Store the order ID in the metadata
+            )
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+
         # Check to see if user is logged in
         if request.user.is_authenticated:
             # Get the Billing Information
@@ -277,7 +358,9 @@ def billing_info(request):
                                                                  "quantities": quantities, "totals": totals,
                                                                  "shipping_form": request.POST,
                                                                  "billing_form": billing_form,
-                                                                 "paypal_form": paypal_form})
+                                                                 "paypal_form": paypal_form,
+                                                                 "checkout_session_url": checkout_session.url,
+                                                                 })
         else:
             # not logged in
             create_order = Order(full_name=full_name, email=email,
@@ -313,7 +396,9 @@ def billing_info(request):
                                                                  "quantities": quantities, "totals": totals,
                                                                  "shipping_form": request.POST,
                                                                  "billing_form": billing_form,
-                                                                 "paypal_form": paypal_form})
+                                                                 "paypal_form": paypal_form,
+                                                                 "checkout_session_url": checkout_session.url,
+                                                                 })
 
     else:
         messages.success(request, "Access denied")

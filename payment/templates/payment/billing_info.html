@@ -78,20 +78,22 @@
 
             <br /><br />
 
-            <div class="center-text">{{paypal_form.render}}</div>
+<div class="d-flex justify-content-between align-items-center mt-4">
+    <!-- PayPal Form -->
+    <div>
+        {{ paypal_form.render }}
+    </div>
+
+    <!-- Stripe Button -->
+    {% if checkout_session_url %}
+        <a href="{{ checkout_session_url }}" class="btn btn-success btn-medium btn-checkout">
+            <i class="fas fa-shopping-cart"></i> Stripe Checkout
+        </a>
+    {% endif %}
+</div>
+
 
             <br/><br/>
-            <!-- Billing Information -->
-            <div class="card">
-                <div class="card-header">Billing Information</div>
-                <div class="card-body">
-                    <form method="POST" action="{% url 'process_order' %}">
-                        {% csrf_token %}
-                        {{ billing_form.as_p }}
-                        <button type="submit" class="btn btn-secondary mt-3">Pay Now</button>
-                    </form>
-                </div>
-            </div>
 
         </div>
     </div>

@@ -10,9 +10,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Load our environment variables
 # load_dotenv()
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
 # Password for local hosting settings
 # DB_PASSWORD_YO = os.environ.get('DB_PASSWORD_YO')
 
@@ -20,17 +17,17 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_'
+SECRET_KEY = os.environ['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
-                 'https://e-commerce-production-3e1c.up.railway.app', 'localhost',
+                 'https://e-commerce-production-3e1c.up.railway.app',
                  '2201-2806-2f0-7081-e0b5-3955-aa0d-d525-e40d.ngrok-free.app']
 CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com', 'https://e-commerce-production-3e1c'
-                                                        '.up.railway.app', 'https://2201-2806-2f0-7081-e0b5-3955-aa0d'
-                                                                           '-d525-e40d.ngrok-free.app']
+                        '.up.railway.app', 'https://2201-2806-2f0-7081-e0b5-3955-aa0d'
+                        '-d525-e40d.ngrok-free.app']
 
 # Application definition
 
@@ -162,3 +159,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 PAYPAL_TEST = True
 
 PAYPAL_RECEIVER_EMAIL = 'huandongbusiness@qq.com'
+
+STRIPE_PUBLIC_KEY = "pk_test_51Qc9VtBbLu4XKMtilV67WcRMA4TFTdEpBO0dI" \
+                    "8QN2ofcOcIQK9L6oqq7hUmNzq5C8rJRO3amOkCHuN9KSJ3ectXv00FRqSVNGK"
+STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
+STRIPE_WEBHOOK_SECRET = os.environ['STRIPE_WEBHOOK_SECRET']
