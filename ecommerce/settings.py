@@ -1,10 +1,14 @@
 from pathlib import Path
 import os
-from decouple import config
+import environ
+
 # from dotenv import load_dotenv
 from django.utils.timezone import now
 from pytz import timezone
-
+env = environ.Env(
+    # set casting, default value
+    DEBUG=(bool, False)
+)
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -18,10 +22,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 
 ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
                  'https://e-commerce-production-3e1c.up.railway.app',
