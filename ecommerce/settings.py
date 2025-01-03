@@ -1,5 +1,6 @@
 from pathlib import Path
 import os
+from decouple import config
 # from dotenv import load_dotenv
 from django.utils.timezone import now
 from pytz import timezone
@@ -17,10 +18,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
                  'https://e-commerce-production-3e1c.up.railway.app',
