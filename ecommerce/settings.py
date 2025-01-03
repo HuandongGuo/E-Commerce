@@ -1,32 +1,40 @@
 from pathlib import Path
 import os
 import environ
+from django.core.exceptions import ImproperlyConfigured
 
 # from dotenv import load_dotenv
 from django.utils.timezone import now
 from pytz import timezone
-env = environ.Env(
-    # set casting, default value
-    DEBUG=(bool, False)
-)
-environ.Env.read_env()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+env = environ.Env()
+environ.Env.read_env()
+
 
 # Load our environment variables
 # load_dotenv()
 
 # Password for local hosting settings
 # DB_PASSWORD_YO = os.environ.get('DB_PASSWORD_YO')
+def get_env_variable(var_name):
+    try:
+        return os.environ[var_name]
+    except KeyError:
+        error_msg = "set the %s environment variable" % var_name
+    raise ImproperlyConfigured(error_msg)
 
+
+SECRET_KEY = get_env_variable('SECRET_KEY')
 # password DB
 DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
+DEBUG = False
 
 ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
                  'https://e-commerce-production-3e1c.up.railway.app',
