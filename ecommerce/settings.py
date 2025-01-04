@@ -17,18 +17,9 @@ STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 
 DEBUG = False
-print(f"SECRET_KEY: {SECRET_KEY}")
-print(f"STRIPE_SECRET_KEY: {STRIPE_SECRET_KEY}")
-print(f"STRIPE_WEBHOOK_SECRET: {STRIPE_WEBHOOK_SECRET}")
-
-# Load our environment variables
-# load_dotenv()
-
-# Password for local hosting settings
-# DB_PASSWORD_YO = os.environ.get('DB_PASSWORD_YO')
 
 # password DB
-DB_PASSWORD_YO = os.environ['DB_PASSWORD_YO']
+DB_PASSWORD_YO = env('DB_PASSWORD_YO')
 
 ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com', 'e-commerce-production-3e1c.up.railway.app',
                  'https://e-commerce-production-3e1c.up.railway.app',
@@ -155,7 +146,7 @@ STATICFILES_DIRS = ['static/']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = 'media/'
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
