@@ -1,6 +1,5 @@
 import os
 import environ
-from decouple import config
 
 # from dotenv import load_dotenv
 
