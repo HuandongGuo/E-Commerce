@@ -1,5 +1,6 @@
 import os
 import environ
+from decouple import config
 
 # from dotenv import load_dotenv
 
@@ -10,7 +11,7 @@ environ.Env.read_env()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = env('SECRET_KEY')
+SECRET_KEY = config("SECRET_KEY")
 
 DEBUG = env('DEBUG')
 # Load our environment variables
