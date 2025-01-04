@@ -25,7 +25,7 @@ ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com',
                  'e-commerce-production-3e1c.up.railway.app',
                  'https://e-commerce-production-3e1c.up.railway.app',
                  '2201-2806-2f0-7081-e0b5-3955-aa0d-d525-e40d.ngrok-free.app',
-                 'localhost', '127.0.0.1']
+                 ]
 CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com',
                         'https://e-commerce-production-3e1c.up.railway.app',
                         'https://2201-2806-2f0-7081-e0b5-3955-aa0d-d525-e40d.ngrok-free.app']
