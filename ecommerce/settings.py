@@ -1,19 +1,26 @@
-import os
 import environ
+import os
 from pathlib import Path
-
-# from dotenv import load_dotenv
-
-env = environ.Env()
-
-# read th .env file
-environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+
+# Load the .env file
+env_file = os.path.join(BASE_DIR, '.env')
+if os.path.exists(env_file):
+    environ.Env.read_env(env_file)
+
+# Load environment variables
 SECRET_KEY = env('SECRET_KEY')
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 
 DEBUG = False
+print(f"SECRET_KEY: {SECRET_KEY}")
+print(f"STRIPE_SECRET_KEY: {STRIPE_SECRET_KEY}")
+print(f"STRIPE_WEBHOOK_SECRET: {STRIPE_WEBHOOK_SECRET}")
+
 # Load our environment variables
 # load_dotenv()
 
@@ -163,5 +170,3 @@ PAYPAL_RECEIVER_EMAIL = 'huandongbusiness@qq.com'
 
 STRIPE_PUBLIC_KEY = "pk_test_51Qc9VtBbLu4XKMtilV67WcRMA4TFTdEpBO0dI" \
                     "8QN2ofcOcIQK9L6oqq7hUmNzq5C8rJRO3amOkCHuN9KSJ3ectXv00FRqSVNGK"
-STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
-STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
