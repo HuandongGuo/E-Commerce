@@ -11,7 +11,7 @@ environ.Env.read_env()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ['SECRET_KEY']
+SECRET_KEY = env('SECRET_KEY')
 
 DEBUG = False
 # Load our environment variables
@@ -163,5 +163,5 @@ PAYPAL_RECEIVER_EMAIL = 'huandongbusiness@qq.com'
 
 STRIPE_PUBLIC_KEY = "pk_test_51Qc9VtBbLu4XKMtilV67WcRMA4TFTdEpBO0dI" \
                     "8QN2ofcOcIQK9L6oqq7hUmNzq5C8rJRO3amOkCHuN9KSJ3ectXv00FRqSVNGK"
-STRIPE_SECRET_KEY = os.environ['STRIPE_SECRET_KEY']
-STRIPE_WEBHOOK_SECRET = os.environ['STRIPE_WEBHOOK_SECRET']
+STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
+STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
