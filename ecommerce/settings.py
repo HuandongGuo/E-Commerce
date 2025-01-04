@@ -16,7 +16,7 @@ SECRET_KEY = env('SECRET_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 
-DEBUG = True
+DEBUG = False
 
 # password DB
 DB_PASSWORD_YO = env('DB_PASSWORD_YO')
@@ -141,14 +141,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "https://urbanaurajewelry.com/static/"
 STATICFILES_DIRS = ['static/']
 
 # White noise static stuff
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "https://urbanaurajewelry.com/media/"
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
