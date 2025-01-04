@@ -12,7 +12,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_'
 
-DEBUG = env('DEBUG')
+DEBUG = False
 # Load our environment variables
 # load_dotenv()
 
