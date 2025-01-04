@@ -1,5 +1,6 @@
 import os
 import environ
+from pathlib import Path
 
 # from dotenv import load_dotenv
 
@@ -8,7 +9,7 @@ env = environ.Env()
 # read th .env file
 environ.Env.read_env()
 
-BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-n*qfw*%el8q5lf&m9y6u68(g+zbtu!k(aw8v*3)(844q^c5xt_'
 
