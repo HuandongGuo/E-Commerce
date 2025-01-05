@@ -16,15 +16,15 @@ SECRET_KEY = env('SECRET_KEY')
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 STRIPE_WEBHOOK_SECRET = env('STRIPE_WEBHOOK_SECRET')
 
-DEBUG = False
+DEBUG = True
 
 # password DB
 DB_PASSWORD_YO = env('DB_PASSWORD_YO')
 
-ALLOWED_HOSTS = ['https://urbanaurajewelry.com', 'urbanaurajewelry.com',
+ALLOWED_HOSTS = ['urbanaurajewelry.com',
                  'e-commerce-production-3e1c.up.railway.app',
-                 'https://e-commerce-production-3e1c.up.railway.app',
                  '2201-2806-2f0-7081-e0b5-3955-aa0d-d525-e40d.ngrok-free.app',
+                 'localhost', '127.0.0.1'
                  ]
 CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com',
                         'https://e-commerce-production-3e1c.up.railway.app',
@@ -141,16 +141,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = "https://urbanaurajewelry.com/static/"
-STATICFILES_DIRS = ['static/']
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # White noise static stuff
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-MEDIA_URL = "https://urbanaurajewelry.com/media/"
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -164,5 +164,3 @@ PAYPAL_RECEIVER_EMAIL = 'huandongbusiness@qq.com'
 
 STRIPE_PUBLIC_KEY = "pk_test_51Qc9VtBbLu4XKMtilV67WcRMA4TFTdEpBO0dI" \
                     "8QN2ofcOcIQK9L6oqq7hUmNzq5C8rJRO3amOkCHuN9KSJ3ectXv00FRqSVNGK"
-print("MEDIA_ROOT:", MEDIA_ROOT)
-print("MEDIA_URL:", MEDIA_URL)
