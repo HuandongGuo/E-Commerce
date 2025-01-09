@@ -24,7 +24,6 @@ DB_PASSWORD_YO = env('DB_PASSWORD_YO')
 ALLOWED_HOSTS = ['urbanaurajewelry.com',
                  'e-commerce-production-3e1c.up.railway.app',
                  '2201-2806-2f0-7081-e0b5-3955-aa0d-d525-e40d.ngrok-free.app',
-                 'localhost', '127.0.0.1'
                  ]
 CSRF_TRUSTED_ORIGINS = ['https://urbanaurajewelry.com',
                         'https://e-commerce-production-3e1c.up.railway.app',
@@ -142,14 +141,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
+if DEBUG:
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+else:
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # White noise static stuff
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

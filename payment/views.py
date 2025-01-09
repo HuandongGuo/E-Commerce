@@ -17,14 +17,13 @@ from payment.forms import ShippingAddressForm, PaymentForm
 from payment.models import ShippingAddress, Order, OrderItems
 from store.models import Profile
 
-stripe.api_key = settings.STRIPE_SECRET_KEY
-
 import stripe
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 # Replace with your Stripe Webhook secret
 STRIPE_WEBHOOK_SECRET = settings.STRIPE_WEBHOOK_SECRET
+stripe.api_key = settings.STRIPE_SECRET_KEY
 
 
 @csrf_exempt
